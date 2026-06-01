@@ -1,0 +1,94 @@
+{
+  "name": "@entrolytics/react-native",
+  "version": "2.2.1",
+  "description": "React Native SDK for Entrolytics - First-party growth analytics for the edge",
+  "keywords": [
+    "analytics",
+    "android",
+    "entrolytics",
+    "ios",
+    "mobile",
+    "react-native",
+    "tracking"
+  ],
+  "homepage": "https://entrolytics.click",
+  "bugs": {
+    "url": "https://github.com/entrolytics/react-native/issues"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@11.5.0",
+  "author": "Entrolytics <hey@entrolytics.click>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/entrolytics/react-native",
+    "directory": "packages/mobile/react-native"
+  },
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "*.podspec",
+    "!lib/typescript/example",
+    "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
+  ],
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
+  "scripts": {
+    "test": "jest",
+    "typecheck": "tsgo --noEmit",
+    "check": "vp check",
+    "lint": "vp lint --fix . && vp fmt --write .",
+    "lint:check": "vp lint . && vp fmt --check .",
+    "lint:fix-unsafe": "vp lint -f stylish --import-plugin --react-plugin --type-aware --type-check --fix --fix-suggestions --fix-dangerously src/",
+    "format": "vp fmt --write .",
+    "prepack": "bob build",
+    "release": "release-it",
+    "example": "yarn --cwd example",
+    "bootstrap": "yarn example && yarn install"
+  },
+  "devDependencies": {
+    "@react-native-async-storage/async-storage": "^3.1.1",
+    "@types/jest": "^30.0.0",
+    "@types/react": "^19.2.15",
+    "@types/react-native": "0.73.0",
+    "jest": "^30.4.2",
+    "react": "^19.2.6",
+    "react-native": "0.85.3",
+    "react-native-builder-bob": "^0.41.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.14",
+    "vite-plus": "^0.1.23"
+  },
+  "peerDependencies": {
+    "@react-native-async-storage/async-storage": "^3.1.1",
+    "react": "*",
+    "react-native": "0.85.3"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  }
+}
