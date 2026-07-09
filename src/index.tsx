@@ -77,6 +77,7 @@ class EntrolyticsReactNative {
 
     const payload = {
       websiteId: this.config.websiteId,
+      eventId: createUuid(),
       sessionId: this.sessionId,
       visitorId,
       url: `app://react-native/${event.event}`,
