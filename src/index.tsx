@@ -22,6 +22,30 @@ export interface ScreenEvent {
 }
 
 const VISITOR_ID_STORAGE_KEY = "@entrolytics:visitor_id";
+const OFFLINE_QUEUE_STORAGE_KEY = "@entrolytics:offline_queue";
+
+function isEvent(value: unknown): value is Event {
+  if (typeof value !== "object" || value === null || !("event" in value)) {
+    return false;
+  }
+  if (typeof value.event !== "string") {
+    return false;
+  }
+  if (
+    "timestamp" in value &&
+    value.timestamp !== undefined &&
+    typeof value.timestamp !== "string"
+  ) {
+    return false;
+  }
+  return (
+    !("properties" in value) ||
+    value.properties === undefined ||
+    (typeof value.properties === "object" &&
+      value.properties !== null &&
+      !Array.isArray(value.properties))
+  );
+}
 
 const createUuid = (): string =>
   "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (char) => {
@@ -36,6 +60,7 @@ class EntrolyticsReactNative {
   private offlineQueue: Event[] = [];
   private appStateSubscription?: ReturnType<typeof AppState.addEventListener>;
   private visitorId?: string;
+  private visitorDay?: string;
   private sessionId = createUuid();
 
   async initialize(config: EntrolyticsConfig): Promise<void> {
@@ -177,9 +202,10 @@ class EntrolyticsReactNative {
 
   private async loadOfflineQueue(): Promise<void> {
     try {
-      const queueJson = await AsyncStorage.getItem("@entrolytics:offline_queue");
+      const queueJson = await AsyncStorage.getItem(OFFLINE_QUEUE_STORAGE_KEY);
       if (queueJson) {
-        this.offlineQueue = JSON.parse(queueJson);
+        const parsed: unknown = JSON.parse(queueJson);
+        this.offlineQueue = Array.isArray(parsed) ? parsed.filter(isEvent) : [];
       }
     } catch (error) {
       if (this.config?.debug) {
@@ -190,7 +216,7 @@ class EntrolyticsReactNative {
 
   private async saveOfflineQueue(): Promise<void> {
     try {
-      await AsyncStorage.setItem("@entrolytics:offline_queue", JSON.stringify(this.offlineQueue));
+      await AsyncStorage.setItem(OFFLINE_QUEUE_STORAGE_KEY, JSON.stringify(this.offlineQueue));
     } catch (error) {
       if (this.config?.debug) {
         console.error("[Entrolytics] Failed to save offline queue:", error);
@@ -225,19 +251,39 @@ class EntrolyticsReactNative {
   }
 
   private async getVisitorId(): Promise<string> {
-    if (this.visitorId) {
+    const visitorDay = new Date().toISOString().slice(0, 10);
+    if (this.visitorId && this.visitorDay === visitorDay) {
       return this.visitorId;
     }
 
-    const storedId = await AsyncStorage.getItem(VISITOR_ID_STORAGE_KEY);
-    if (storedId) {
-      this.visitorId = storedId;
-      return storedId;
+    const storedVisitor = await AsyncStorage.getItem(VISITOR_ID_STORAGE_KEY);
+    if (storedVisitor) {
+      try {
+        const parsed: unknown = JSON.parse(storedVisitor);
+        if (
+          typeof parsed === "object" &&
+          parsed !== null &&
+          "day" in parsed &&
+          parsed.day === visitorDay &&
+          "id" in parsed &&
+          typeof parsed.id === "string"
+        ) {
+          this.visitorDay = visitorDay;
+          this.visitorId = parsed.id;
+          return parsed.id;
+        }
+      } catch {
+        // Replace malformed or legacy values with the current daily identity.
+      }
     }
 
     const newId = createUuid();
+    this.visitorDay = visitorDay;
     this.visitorId = newId;
-    await AsyncStorage.setItem(VISITOR_ID_STORAGE_KEY, newId);
+    await AsyncStorage.setItem(
+      VISITOR_ID_STORAGE_KEY,
+      JSON.stringify({ day: visitorDay, id: newId }),
+    );
     return newId;
   }
 }
