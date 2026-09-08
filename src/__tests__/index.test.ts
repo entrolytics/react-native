@@ -23,7 +23,7 @@ vi.mock("react-native", () => ({
   Platform: { OS: "ios", Version: "18" },
 }));
 
-import { Entrolytics } from "./index";
+import { Entrolytics } from "../index";
 
 afterEach(() => {
   vi.unstubAllGlobals();
