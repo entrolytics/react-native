@@ -1,6 +1,6 @@
 {
   "name": "@entrolytics/react-native",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "React Native SDK for Entrolytics - First-party growth analytics for the edge",
   "keywords": [
     "analytics",
@@ -16,7 +16,6 @@
     "url": "https://github.com/entrolytics/react-native/issues"
   },
   "license": "MIT",
-  "packageManager": "pnpm@11.10.0",
   "author": "Entrolytics <hey@entrolytics.click>",
   "repository": {
     "type": "git",
@@ -42,13 +41,14 @@
     "!**/__mocks__",
     "!**/.*"
   ],
+  "type": "module",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
   "scripts": {
-    "test": "jest",
-    "typecheck": "tsgo --noEmit",
+    "test": "vp test run",
+    "typecheck": "tsc --noEmit",
     "check": "vp check",
     "lint": "vp lint --fix . && vp fmt --write .",
     "lint:check": "vp lint . && vp fmt --check .",
@@ -61,23 +61,20 @@
   },
   "devDependencies": {
     "@react-native-async-storage/async-storage": "^3.1.1",
-    "@types/jest": "^30.0.0",
-    "@types/react": "^19.2.17",
-    "@types/react-native": "0.73.0",
-    "@typescript/native-preview": "latest",
-    "jest": "^30.4.2",
-    "react": "^19.2.7",
-    "react-native": "0.86.0",
-    "react-native-builder-bob": "^0.43.0",
-    "typescript": "^7.0.2",
-    "vite": "^8.1.4",
-    "vite-plus": "^0.2.4"
+    "@types/react": "^19.2.18",
+    "react": "canary",
+    "react-native": "0.87.1",
+    "react-native-builder-bob": "^0.43.1",
+    "typescript": "next",
+    "vite": "^8.2.2",
+    "vite-plus": "^0.3.1"
   },
   "peerDependencies": {
     "@react-native-async-storage/async-storage": "^3.1.1",
     "react": "*",
     "react-native": "0.85.3"
   },
+  "packageManager": "pnpm@11.26.0",
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
