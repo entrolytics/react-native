@@ -36,7 +36,7 @@ import Entrolytics from "@entrolytics/react-native";
 // Initialize in your App.tsx
 useEffect(() => {
   Entrolytics.initialize({
-    endpoint: "https://entrolytics.click",
+    endpoint: "https://entrolytics.dev",
     apiKey: "your-api-key",
     websiteId: "your-website-id",
     debug: __DEV__,
@@ -156,7 +156,7 @@ Events are automatically queued when offline and sent when connection is restore
 
 ```typescript
 Entrolytics.initialize({
-  endpoint: "https://entrolytics.click",
+  endpoint: "https://entrolytics.dev",
   apiKey: "your-api-key",
   websiteId: "your-website-id",
   enableOfflineTracking: true,

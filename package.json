@@ -11,12 +11,12 @@
     "react-native",
     "tracking"
   ],
-  "homepage": "https://entrolytics.click",
+  "homepage": "https://entrolytics.dev",
   "bugs": {
     "url": "https://github.com/entrolytics/react-native/issues"
   },
   "license": "MIT",
-  "author": "Entrolytics <hey@entrolytics.click>",
+  "author": "Entrolytics <hey@entrolytics.dev>",
   "repository": {
     "type": "git",
     "url": "https://github.com/entrolytics/react-native",
@@ -64,7 +64,7 @@
     "@types/react": "^19.2.18",
     "oxfmt": "^0.67.0",
     "oxlint": "^1.82.0",
-    "react": "canary",
+    "react": "latest",
     "react-native": "0.87.1",
     "react-native-builder-bob": "^0.43.1",
     "typescript": "next",
@@ -73,9 +73,9 @@
   "peerDependencies": {
     "@react-native-async-storage/async-storage": "^3.1.1",
     "react": "*",
-    "react-native": "0.85.3"
+    "react-native": ">=0.85.3 <1.0.0"
   },
-  "packageManager": "pnpm@11.26.0",
+  "packageManager": "pnpm@11.27.1",
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
