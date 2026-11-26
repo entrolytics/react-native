@@ -5,6 +5,8 @@ All notable changes to this project are documented in this file. The format foll
 
 ## [Unreleased]
 
+## [3.0.2] - 2026-11-26
+
 ### Fixed
 
 - Test files are no longer included in the published package.
@@ -15,3 +17,6 @@ All notable changes to this project are documented in this file. The format foll
   `entrolytics.dev`. The SDK's default endpoint is unchanged.
 - Dependencies updated to their latest releases; the toolchain moved to oxlint, oxfmt, vitest
   and pnpm 12.23.
+
+[Unreleased]: https://github.com/entrolytics/react-native/compare/v3.0.2...HEAD
+[3.0.2]: https://github.com/entrolytics/react-native/releases/tag/v3.0.2
