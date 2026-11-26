@@ -61,14 +61,14 @@
   },
   "devDependencies": {
     "@react-native-async-storage/async-storage": "^3.1.1",
-    "@types/react": "^19.3.0",
-    "oxfmt": "^0.76.0",
-    "oxlint": "^1.91.0",
+    "@types/react": "^19.3.3",
+    "oxfmt": "^0.80.0",
+    "oxlint": "^1.95.0",
     "react": "latest",
     "react-native": "0.88.1",
     "react-native-builder-bob": "^0.44.1",
     "typescript": "next",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.2"
   },
   "peerDependencies": {
     "@react-native-async-storage/async-storage": "^3.1.1",
